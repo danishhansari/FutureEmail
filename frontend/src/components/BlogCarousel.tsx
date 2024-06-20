@@ -30,30 +30,12 @@ export const BlogCarousel = () => {
                         className="aspect-video object-cover rounded-t-lg"
                       />
                       <CardHeader>
+                        <CardTitle>{blog.category}</CardTitle>
                         <CardTitle>{blog.title}</CardTitle>
                       </CardHeader>
                     </CarouselItem>
                   );
                 })}
-
-                <CarouselItem>
-                  <img
-                    src="https://a.storyblok.com/f/127416/1107x603/2be93524b6/header_capture_memory.png"
-                    alt="Cover image"
-                    width={1250}
-                    height={340}
-                    className="aspect-video object-cover rounded-t-lg"
-                  />
-                </CarouselItem>
-                <CarouselItem>
-                  <img
-                    src="https://a.storyblok.com/f/127416/1107x603/2be93524b6/header_capture_memory.png"
-                    alt="Cover image"
-                    width={1250}
-                    height={340}
-                    className="aspect-video object-cover rounded-t-lg"
-                  />
-                </CarouselItem>
               </CarouselContent>
             </Carousel>
           </div>
