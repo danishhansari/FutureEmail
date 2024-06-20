@@ -1,8 +1,12 @@
-import {Button} from '@/components/ui/button'
+import Hero from "./components/Hero";
+import Navbar from "./components/Navbar";
 function App() {
   return (
-    <Button>Hello there</Button>
-  )
+    <>
+      <Navbar />
+      <Hero />
+    </>
+  );
 }
 
-export default App
+export default App;
