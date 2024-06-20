@@ -8,7 +8,7 @@ import { blogdata } from "@/data";
 
 export const BlogCarousel = () => {
   return (
-    <div>
+    <>
       <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
         Need some inspiration?
       </h2>
@@ -28,41 +28,18 @@ export const BlogCarousel = () => {
                       alt="Cover image"
                       className="max-w-full rounded-t-lg"
                     />
-                   
-                    <CardTitle className="font-mono text-sm font-medium my-1 text-background">{blog.category}</CardTitle>
+
+                    <CardTitle className="font-mono text-sm font-medium my-1 text-background">
+                      {blog.category}
+                    </CardTitle>
                     <CardTitle>{blog.title}</CardTitle>
                   </CarouselItem>
                 );
               })}
             </CarouselContent>
           </Carousel>
-          <div className="hidden md:grid md:grid-cols-2 gap-4">
-            <img
-              src="https://a.storyblok.com/f/127416/1107x603/2be93524b6/header_capture_memory.png"
-              alt="Cover image"
-              width={1250}
-              height={340}
-              className="aspect-video object-cover rounded-t-lg md:rounded-l-lg"
-            />
-            <div className="grid gap-4">
-              <img
-                src="https://a.storyblok.com/f/127416/1107x603/2be93524b6/header_capture_memory.png"
-                alt="Cover image"
-                width={1250}
-                height={340}
-                className="aspect-video object-cover rounded-t-lg md:rounded-r-lg"
-              />
-              <img
-                src="https://a.storyblok.com/f/127416/1107x603/2be93524b6/header_capture_memory.png"
-                alt="Cover image"
-                width={1250}
-                height={340}
-                className="aspect-video object-cover rounded-t-lg md:rounded-r-lg"
-              />
-            </div>
-          </div>
         </div>
       </Card>
-    </div>
+    </>
   );
 };
