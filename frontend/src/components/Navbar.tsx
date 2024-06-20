@@ -1,7 +1,7 @@
 import { Pen } from "lucide-react";
 import { Button } from "./ui/button";
 import { PopoverDemo } from "./Hamburger";
-const Navbar: React.FC = () => {
+export const Navbar: React.FC = () => {
   return (
     <>
       <div className="bg-foreground flex w-full justify-between py-4 px-4 lg:px-20">
@@ -27,5 +27,3 @@ const Navbar: React.FC = () => {
     </>
   );
 };
-
-export default Navbar;

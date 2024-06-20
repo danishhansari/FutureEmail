@@ -6,7 +6,7 @@ import {
 import { GanttChart, Pen } from "lucide-react";
 import { Button } from "./ui/button";
 
-export function PopoverDemo() {
+export const PopoverDemo: React.FC = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -24,4 +24,4 @@ export function PopoverDemo() {
       </PopoverContent>
     </Popover>
   );
-}
+};
