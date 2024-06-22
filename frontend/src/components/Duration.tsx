@@ -23,7 +23,7 @@ export const Duration: React.FC = () => {
         <h1 className='text-background text-lg font-semibold my-2'>
           Deliver in
         </h1>
-        <RadioGroup className='text-background flex items-center flex-wrap my-2'>
+        <RadioGroup className='text-background flex gap-2 items-center flex-wrap my-2'>
           <div className='flex items-center space-x-2 text-background'>
             <RadioGroupItem value='7' id='r1' className='text-background' />
             <Label htmlFor='r1'>7 Days</Label>

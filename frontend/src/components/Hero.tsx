@@ -4,7 +4,7 @@ import { TextareaWithLabel } from "./TextareaWithLabel";
 export const Hero: React.FC = () => {
   return (
     <div className='bg-foreground w-full pt-12 md:pt-20'>
-      <div className=' max-w-4xl mx-auto px-4'>
+      <div className=' max-w-4xl mx-auto px-4 border-b pb-4 border-slate-700'>
         <h1 className='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-white text-center'>
           Write a Letter to your Future Self
         </h1>
