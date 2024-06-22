@@ -8,7 +8,7 @@ import { blogdata } from "@/data";
 
 export const BlogCarousel = () => {
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto px-4">
       <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
         Need some inspiration?
       </h2>
@@ -29,7 +29,7 @@ export const BlogCarousel = () => {
                       className="max-w-full rounded-t-lg"
                     />
 
-                    <CardTitle className="font-mono text-sm font-medium my-1 text-background">
+                    <CardTitle className="font-mono text-sm font-medium my-1 text-blue-500">
                       {blog.category}
                     </CardTitle>
                     <CardTitle>{blog.title}</CardTitle>
@@ -49,7 +49,7 @@ export const BlogCarousel = () => {
                   alt="Cover image"
                   className="w-full rounded-t-lg"
                 />
-                <CardTitle className="font-mono text-sm font-medium my-1 text-background">
+                <CardTitle className="font-mono text-sm font-semibold my-1 text-blue-600">
                   {blog.category}
                 </CardTitle>
                 <CardTitle className="text-background">{blog.title}</CardTitle>
@@ -58,6 +58,8 @@ export const BlogCarousel = () => {
           })}
         </div>
       </Card>
+
+
     </div>
   );
 };
