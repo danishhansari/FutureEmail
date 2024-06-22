@@ -17,7 +17,7 @@ export const InviteFriend = () => {
           <Send className='inline-block mr-2' size={18} /> Invite Friend
         </Button>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[425px] bg-foreground text-background'>
+      <DialogContent className='sm:max-w-[425px] bg-foreground text-background mx-4'>
         <DialogHeader>
           <DialogTitle>Invite a Friend</DialogTitle>
           <DialogDescription>

@@ -3,7 +3,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 export const TextareaWithLabel: React.FC = () => {
   return (
-    <div className='grid w-full gap-1.5 px-2 max-w-4xl mt-6 md:mt-12 mx-auto'>
+    <div className='grid w-full gap-1.5 mt-6 md:mt-12 mx-auto'>
       <Label htmlFor='message' className='text-muted-foreground mb-2'>
         Your Future Message
       </Label>
