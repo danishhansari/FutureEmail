@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 const Signin = () => {
   return (
-    <div className='grid place-items-center bg-foreground text-background h-[75vh] mx-4'>
+    <div className='grid place-items-center bg-foreground text-background h-[75vh] px-4'>
       <div className='max-w-md w-full'>
         <h3 className='scroll-m-20 text-2xl font-semibold tracking-tight'>
           Login to you Account
