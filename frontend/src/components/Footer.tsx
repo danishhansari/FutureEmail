@@ -1,6 +1,5 @@
 import { Github, Twitter, Linkedin } from "lucide-react";
 import { InviteFriend } from "./InviteFriend";
-import { Link } from "@tanstack/react-router";
 export const Footer: React.FC = () => {
   return (
     <div className='bg-foreground py-4'>
