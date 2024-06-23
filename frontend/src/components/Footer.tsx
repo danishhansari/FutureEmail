@@ -6,7 +6,7 @@ export const Footer: React.FC = () => {
       <div className='max-w-4xl px-4 mx-auto'>
         <img src='./logo-white.png' className='w-36 my-2' alt='' />
         <div className='flex text-background justify-between items-center my-4'>
-          <div className='flex gap-4 text-gray-500'>
+          <div className='flex gap-4 text-gray-500 my-2'>
             <a href='https://github.com/danishhansari'>
               <Github className='hover:text-gray-400' />
             </a>
@@ -19,7 +19,7 @@ export const Footer: React.FC = () => {
           </div>
           <InviteFriend />
         </div>
-        <div className='text-gray-500'>
+        <div className='text-gray-500 mt-2'>
           All rights are reserved &copy;{new Date().getFullYear()} Ansari Danish
         </div>
       </div>
