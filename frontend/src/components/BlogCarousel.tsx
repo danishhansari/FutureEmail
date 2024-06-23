@@ -9,7 +9,7 @@ import { Link } from "@tanstack/react-router";
 
 export const BlogCarousel: React.FC = () => {
   return (
-    <div className='max-w-4xl mx-auto px-2'>
+    <div className='max-w-4xl mx-auto'>
       <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0'>
         Need some inspiration?
       </h2>
@@ -46,8 +46,8 @@ export const BlogCarousel: React.FC = () => {
         <div className='hidden md:grid grid-cols-2 max-w-4xl mx-auto py-4 gap-8 '>
           {blogdata.map((blog) => {
             return (
-              <Link to={blog.link}>
-                <Card className='bg-foreground border-none' key={blog.id}>
+              <Link to={blog.link} key={blog.id}>
+                <Card className='bg-foreground border-none'>
                   <img
                     src={blog.img}
                     alt='Cover image'
