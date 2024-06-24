@@ -19,11 +19,8 @@ export const Hamburger: React.FC = () => {
             <Pen size={16} className='mr-2' />
             Write
           </Button>
-          <Link to='/signup'>
-            <Button variant={"ghost"}>Signup</Button>
-          </Link>
-          <Link to='/signin'>
-            <Button variant={"ghost"}>Signin</Button>
+          <Link to='/auth'>
+            <Button variant={"ghost"}>Get started</Button>
           </Link>
         </div>
       </PopoverContent>
