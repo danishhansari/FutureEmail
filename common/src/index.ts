@@ -17,5 +17,11 @@ export const loginSchema = z.object({
   password: z.string().min(4),
 });
 
+export const emailSchema = z.object({
+  subject: z.string().min(1),
+  body: z.string(),
+  date: z.date(),
+});
+
 export type RegisterType = z.infer<typeof registerSchema>;
 export type LoginType = z.infer<typeof loginSchema>;
