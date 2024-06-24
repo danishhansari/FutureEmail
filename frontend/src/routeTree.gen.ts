@@ -17,8 +17,7 @@ import { Route as IndexImport } from './routes/index'
 
 // Create Virtual Routes
 
-const SignupIndexLazyImport = createFileRoute('/signup/')()
-const SigninIndexLazyImport = createFileRoute('/signin/')()
+const AuthIndexLazyImport = createFileRoute('/auth/')()
 
 // Create/Update Routes
 
@@ -27,15 +26,10 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const SignupIndexLazyRoute = SignupIndexLazyImport.update({
-  path: '/signup/',
+const AuthIndexLazyRoute = AuthIndexLazyImport.update({
+  path: '/auth/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/signup/index.lazy').then((d) => d.Route))
-
-const SigninIndexLazyRoute = SigninIndexLazyImport.update({
-  path: '/signin/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/signin/index.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/auth/index.lazy').then((d) => d.Route))
 
 // Populate the FileRoutesByPath interface
 
@@ -48,18 +42,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/signin/': {
-      id: '/signin/'
-      path: '/signin'
-      fullPath: '/signin'
-      preLoaderRoute: typeof SigninIndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/signup/': {
-      id: '/signup/'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupIndexLazyImport
+    '/auth/': {
+      id: '/auth/'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthIndexLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -69,8 +56,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
-  SigninIndexLazyRoute,
-  SignupIndexLazyRoute,
+  AuthIndexLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -82,18 +68,14 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/signin/",
-        "/signup/"
+        "/auth/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/signin/": {
-      "filePath": "signin/index.lazy.tsx"
-    },
-    "/signup/": {
-      "filePath": "signup/index.lazy.tsx"
+    "/auth/": {
+      "filePath": "auth/index.lazy.tsx"
     }
   }
 }

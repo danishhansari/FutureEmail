@@ -21,15 +21,12 @@ export const Navbar: React.FC = () => {
         </div>
 
         <div className='gap-2 hidden md:flex'>
-          <Link to='/signin'>
-            <Button variant={"secondary"}>Sign in</Button>
-          </Link>
-          <Link to='/signup'>
+          <Link to='/auth'>
             <Button
               variant={"outline"}
               className='bg-foreground text-background'
             >
-              Sign up
+              Get Started
             </Button>
           </Link>
         </div>
