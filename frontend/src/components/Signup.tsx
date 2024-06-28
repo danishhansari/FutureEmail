@@ -1,20 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RegisterType } from "@danishhansari/futureemail-common";
+// import { RegisterType } from "@danishhansari/futureemail-common";
 
 const Signup = () => {
-  const submitUser = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = new FormData(signupForm);
-    const formData: RegisterType = {};
+  // const submitUser = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const form = new FormData(signupForm);
+  //   const formData: RegisterType;
 
-    for (let [key, value] of form.entries()) {
-      formData[key as keyof RegisterType] =
-        value as (typeof formData)[keyof RegisterType];
-    }
-    console.log(formData);
-  };
+  //   for (let [key, value] of form.entries()) {
+  //     formData[key as keyof RegisterType] =
+  //       value as (typeof formData)[keyof RegisterType];
+  //   }
+  //   console.log(formData);
+  // };
 
   return (
     <div className='grid place-items-center bg-foreground text-background px-4 mt-4 md:mt-8'>
@@ -68,7 +68,7 @@ const Signup = () => {
             />
           </div>
           <Button
-            onClick={submitUser}
+            onClick={() => console.log("Hello")}
             className='block w-full mt-4 bg-slate-800 text-gray-300'
           >
             Signup
