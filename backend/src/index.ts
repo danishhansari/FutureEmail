@@ -12,4 +12,5 @@ app.get("/", (c) => {
 });
 
 app.basePath("/api").route("/auth", authRoute).route("/email", emailRoute);
+
 export default app;
