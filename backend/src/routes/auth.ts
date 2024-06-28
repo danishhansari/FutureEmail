@@ -11,6 +11,7 @@ export const authRoute = new Hono<{
   .post("/signup", async (c) => {
     try {
       const body = await c.req.json();
+      console.log(body)
       const { success, error: schemaError } = registerSchema.safeParse(body);
       if (!success) {
         return c.json(

@@ -1,7 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { signup } from "@/lib/api";
+import { LoginType } from "@danishhansari/futureemail-common";
+import { ChangeEvent, useState } from "react";
+
 const Signin = () => {
+  const [login, setLogin] = useState<LoginType>({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setLogin((prev) => ({ ...prev, [name]: value }));
+  };
   return (
     <div className='grid place-items-center bg-foreground text-background px-4 mt-4 md:mt-8'>
       <div className='max-w-md w-full'>
@@ -18,6 +31,8 @@ const Signin = () => {
             type='email'
             id='email'
             placeholder='Email'
+            value={login.email}
+            onChange={handleChange}
             className='text-background bg-foreground border-slate-800 focus:bg-foreground'
           />
         </div>
@@ -26,11 +41,16 @@ const Signin = () => {
           <Input
             type='password'
             id='password'
+            value={login.password}
+            onChange={handleChange}
             placeholder='Password'
             className='text-background bg-foreground border-slate-800 focus:bg-foreground'
           />
         </div>
-        <Button className='block w-full mt-4 bg-slate-800 text-gray-300'>
+        <Button
+          onClick={() => console.log("hello")}
+          className='block w-full mt-4 bg-slate-800 text-gray-300'
+        >
           Signin
         </Button>
       </div>
