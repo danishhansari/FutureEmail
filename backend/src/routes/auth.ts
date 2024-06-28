@@ -11,7 +11,7 @@ export const authRoute = new Hono<{
   .post("/signup", async (c) => {
     try {
       const body = await c.req.json();
-      console.log(body)
+      console.log(body);
       const { success, error: schemaError } = registerSchema.safeParse(body);
       if (!success) {
         return c.json(
@@ -43,6 +43,7 @@ export const authRoute = new Hono<{
   .post("/signin", async (c) => {
     try {
       const body = await c.req.json();
+      console.log(body);
       const { success, error: schemaError } = loginSchema.safeParse(body);
       if (!success) {
         c.status(411);
@@ -57,11 +58,14 @@ export const authRoute = new Hono<{
       const response = await prisma.user.findFirst({
         where: { email: body.email, password: body.password },
       });
+      console.log(response);
       if (!response) {
         return c.json({ message: "User is not exist" });
       }
       return c.json(response);
     } catch (error) {
+      console.log(error);
+      c.status(411);
       return c.json({ message: "Error while signing up", error });
     }
   });

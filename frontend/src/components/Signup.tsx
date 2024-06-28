@@ -3,14 +3,26 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signup } from "@/lib/api";
 import { RegisterType } from "@danishhansari/futureemail-common";
+import { useMutation } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const Signup: React.FC = () => {
+  const { toast } = useToast();
   const [register, setRegister] = useState<RegisterType>({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
+  });
+
+  const mutation = useMutation({
+    mutationKey: ["signup"],
+    mutationFn: () => signup(register),
+    onSuccess: () =>
+      toast({
+        title: "Register successfully",
+      }),
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +91,7 @@ const Signup: React.FC = () => {
           />
         </div>
         <Button
-          onClick={() => signup(register)}
+          onClick={() => mutation.mutate()}
           className='block w-full mt-4 bg-slate-800 text-gray-300'
         >
           Signup

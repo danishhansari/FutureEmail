@@ -1,20 +1,34 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signup } from "@/lib/api";
+import { signin } from "@/lib/api";
 import { LoginType } from "@danishhansari/futureemail-common";
+import { useMutation } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const Signin = () => {
+  const { toast } = useToast();
   const [login, setLogin] = useState<LoginType>({
     email: "",
     password: "",
   });
+  console.log(login);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setLogin((prev) => ({ ...prev, [name]: value }));
   };
+
+  const mutation = useMutation({
+    mutationKey: ["login"],
+    mutationFn: () => signin(login),
+    onSuccess: () =>
+      toast({
+        title: "Logged in successfully",
+      }),
+  });
+
   return (
     <div className='grid place-items-center bg-foreground text-background px-4 mt-4 md:mt-8'>
       <div className='max-w-md w-full'>
@@ -31,6 +45,7 @@ const Signin = () => {
             type='email'
             id='email'
             placeholder='Email'
+            name='email'
             value={login.email}
             onChange={handleChange}
             className='text-background bg-foreground border-slate-800 focus:bg-foreground'
@@ -41,6 +56,7 @@ const Signin = () => {
           <Input
             type='password'
             id='password'
+            name='password'
             value={login.password}
             onChange={handleChange}
             placeholder='Password'
@@ -48,7 +64,7 @@ const Signin = () => {
           />
         </div>
         <Button
-          onClick={() => console.log("hello")}
+          onClick={() => mutation.mutate()}
           className='block w-full mt-4 bg-slate-800 text-gray-300'
         >
           Signin
