@@ -18,7 +18,7 @@ const Signin = () => {
             type='email'
             id='email'
             placeholder='Email'
-            className='text-background bg-foreground border-slate-800'
+            className='text-background bg-foreground border-slate-800 focus:bg-foreground'
           />
         </div>
         <div className='grid w-full items-center gap-1.5 mt-4'>
@@ -27,7 +27,7 @@ const Signin = () => {
             type='password'
             id='password'
             placeholder='Password'
-            className='text-background bg-foreground border-slate-800'
+            className='text-background bg-foreground border-slate-800 focus:bg-foreground'
           />
         </div>
         <Button className='block w-full mt-4 bg-slate-800 text-gray-300'>
