@@ -18,3 +18,12 @@ export const signin = async (value: LoginType) => {
   console.log(res.data);
   return res.data;
 };
+
+export const logout = async () => {
+  const res = await axios.get("/api/auth/logout");
+  if (!res) {
+    throw new Error("Server error");
+  }
+  console.log(res.data);
+  return res.data;
+};

@@ -6,6 +6,7 @@ import {
 import { GanttChart, Pen } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link } from "@tanstack/react-router";
+import { logout } from "@/lib/api";
 
 export const Hamburger: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ export const Hamburger: React.FC = () => {
           <Link to='/auth'>
             <Button variant={"ghost"}>Get started</Button>
           </Link>
+          <Button onClick={() => logout()}>Logout</Button>
         </div>
       </PopoverContent>
     </Popover>

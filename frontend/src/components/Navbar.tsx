@@ -2,6 +2,7 @@ import { Pen } from "lucide-react";
 import { Button } from "./ui/button";
 import { Hamburger } from "./Hamburger";
 import { Link } from "@tanstack/react-router";
+import { logout } from "@/lib/api";
 export const Navbar: React.FC = () => {
   return (
     <>
@@ -29,6 +30,7 @@ export const Navbar: React.FC = () => {
               Get Started
             </Button>
           </Link>
+          <Button onClick={() => logout()}>Logout</Button>
         </div>
       </div>
     </>

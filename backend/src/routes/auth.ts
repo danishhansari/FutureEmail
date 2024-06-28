@@ -2,10 +2,13 @@ import { loginSchema, registerSchema } from "@danishhansari/futureemail-common";
 import { PrismaClient, Prisma } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono } from "hono";
+import { getJWTAndOption } from "../utils";
+import { setCookie, deleteCookie } from "hono/cookie";
 
 export const authRoute = new Hono<{
   Bindings: {
     DATABASE_URL: string;
+    SECRET: string;
   };
 }>()
   .post("/signup", async (c) => {
@@ -62,10 +65,19 @@ export const authRoute = new Hono<{
       if (!response) {
         return c.json({ message: "User is not exist" });
       }
-      return c.json(response);
+      const { jwt, options } = await getJWTAndOption(
+        { id: response.id },
+        c.env.SECRET
+      );
+      setCookie(c, "Authorization", jwt, { ...options });
+      return c.json({ response });
     } catch (error) {
       console.log(error);
       c.status(411);
       return c.json({ message: "Error while signing up", error });
     }
+  })
+  .get("/logout", async (c) => {
+    deleteCookie(c, "Authorization");
+    return c.json({ message: "token remove" });
   });
