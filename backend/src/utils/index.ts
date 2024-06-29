@@ -1,5 +1,5 @@
 import { sign, verify } from "hono/jwt";
-import { CookieOptions } from "hono/utils/cookie";
+import { CookieOptions, SignedCookie } from "hono/utils/cookie";
 import {
   JWTPayload,
   JwtTokenInvalid,
@@ -26,7 +26,7 @@ export const getJWTAndOption = async (
 };
 
 export const verifyJWT = async (
-  payload: string,
+  payload: any,
   secret: string
 ): Promise<string | any> => {
   try {

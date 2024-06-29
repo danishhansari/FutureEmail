@@ -1,5 +1,20 @@
 import { LoginType, RegisterType } from "@danishhansari/futureemail-common";
 import axios from "axios";
+import { queryOptions } from "@tanstack/react-query";
+
+export const getCurrentUser = async () => {
+  const res = await axios.get("/api/auth/current-user");
+  if (!res) {
+    throw new Error("Server error");
+  }
+  return res.data;
+};
+
+export const userQueryOptions = queryOptions({
+  queryKey: ["get-current-user"],
+  queryFn: getCurrentUser,
+  staleTime: Infinity,
+});
 
 export const signup = async (value: RegisterType) => {
   try {

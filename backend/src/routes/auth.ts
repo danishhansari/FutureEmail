@@ -2,8 +2,13 @@ import { loginSchema, registerSchema } from "@danishhansari/futureemail-common";
 import { PrismaClient, Prisma } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono } from "hono";
-import { getJWTAndOption, hashPassword, verifyPassword } from "../utils";
-import { setCookie, deleteCookie } from "hono/cookie";
+import {
+  getJWTAndOption,
+  hashPassword,
+  verifyJWT,
+  verifyPassword,
+} from "../utils";
+import { setCookie, deleteCookie, getCookie } from "hono/cookie";
 
 export const authRoute = new Hono<{
   Bindings: {
@@ -11,6 +16,33 @@ export const authRoute = new Hono<{
     SECRET: string;
   };
 }>()
+  .get("/current-user", async (c) => {
+    try {
+      const authorizationToken = getCookie(c, "Authorization");
+      console.log(authorizationToken);
+      if (!authorizationToken) {
+        c.status(403);
+        return c.json({ message: "Login first" });
+      }
+      const { id } = await verifyJWT(authorizationToken, c.env.SECRET);
+      const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+      }).$extends(withAccelerate());
+      const userDetails = await prisma.user.findFirst({
+        where: { id },
+      });
+      return c.json({ ...userDetails, password: undefined });
+    } catch (error) {
+      console.log(error);
+      c.status(500);
+      return c.json({ error });
+    }
+  })
+  .get("/logout", async (c) => {
+    deleteCookie(c, "Authorization");
+    return c.json({ message: "token remove" });
+  })
+
   .post("/signup", async (c) => {
     try {
       const body = await c.req.json();
@@ -89,8 +121,4 @@ export const authRoute = new Hono<{
       c.status(411);
       return c.json({ message: "Error while signing up", error });
     }
-  })
-  .get("/logout", async (c) => {
-    deleteCookie(c, "Authorization");
-    return c.json({ message: "token remove" });
   });

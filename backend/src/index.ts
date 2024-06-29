@@ -15,14 +15,14 @@ app.get("/", (c) => {
 
 app.get("/me", async (c: Context, next) => {
   try {
-    const authorization = getCookie(c, "Authorization");
-    console.log(authorization);
-    if (!authorization) {
+    const authorizationToken = getCookie(c, "Authorization");
+    console.log(authorizationToken);
+    if (!authorizationToken) {
       c.status(403);
       return c.json({ message: "Please login first" });
     }
     const verify = await verifyJWT(
-      authorization,
+      authorizationToken,
       "aNKVaj0BhapmuvfwHf1KW0ZJ9yQ/mlFcMLQoS6SzRtA="
     );
     console.log(verify);
