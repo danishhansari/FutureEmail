@@ -14,7 +14,6 @@ export const authRoute = new Hono<{
   .post("/signup", async (c) => {
     try {
       const body = await c.req.json();
-      console.log(body);
       const { success, error: schemaError } = registerSchema.safeParse(body);
       if (!success) {
         return c.json(
@@ -36,11 +35,18 @@ export const authRoute = new Hono<{
           password: hashedPassword,
         },
       });
-      return c.json(response);
+      const { jwt, options } = await getJWTAndOption(
+        { id: response.id },
+        c.env.SECRET
+      );
+      setCookie(c, "Authorization", jwt, { ...options });
+      return c.json({ ...response, password: undefined });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        c.status(403);
         return c.json({ message: "User is already exist" });
       }
+      c.status(500);
       return c.json({ message: "Error while signing up", error });
     }
   })
@@ -67,7 +73,6 @@ export const authRoute = new Hono<{
         return c.json({ message: "User is not exist" });
       }
       const verify = await verifyPassword(response.password, body.password);
-      console.log(verify);
 
       if (!verify) {
         c.status(403);
@@ -79,9 +84,8 @@ export const authRoute = new Hono<{
         c.env.SECRET
       );
       setCookie(c, "Authorization", jwt, { ...options });
-      return c.json({ response });
-    } catch (error) {
-      console.log(error);
+      return c.json({ ...response, password: undefined });
+    } catch (error: unknown) {
       c.status(411);
       return c.json({ message: "Error while signing up", error });
     }

@@ -1,15 +1,46 @@
-import { sign } from "hono/jwt";
-import { JWTPayload } from "hono/utils/jwt/types";
+import { sign, verify } from "hono/jwt";
+import { CookieOptions } from "hono/utils/cookie";
+import {
+  JWTPayload,
+  JwtTokenInvalid,
+  JwtTokenSignatureMismatched,
+} from "hono/utils/jwt/types";
 
-export const getJWTAndOption = async (payload: JWTPayload, secret: string) => {
+interface JwtSecret {
+  jwt: string;
+  options: CookieOptions;
+}
+
+export const getJWTAndOption = async (
+  payload: JWTPayload,
+  secret: string
+): Promise<JwtSecret> => {
   const jwt = await sign(payload, secret);
-  const options = {
+  const options: CookieOptions = {
     sameSite: "strict",
     httpOnly: true,
     secure: true,
     expires: thirtyDaysFromNow(),
   };
   return { jwt, options };
+};
+
+export const verifyJWT = async (
+  payload: string,
+  secret: string
+): Promise<string | any> => {
+  try {
+    const token = await verify(payload, secret);
+    return token;
+  } catch (error: any) {
+    if (error instanceof JwtTokenSignatureMismatched) {
+      throw new Error("invalid password");
+    }
+    if (error instanceof JwtTokenInvalid) {
+      throw new Error("unauthrozied");
+    }
+    throw new Error(error);
+  }
 };
 
 const thirtyDaysFromNow = (): Date =>

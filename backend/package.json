@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "@danishhansari/futureemail-common": "^1.0.0",
-    "@prisma/client": "5.15.1",
+    "@prisma/client": "5.16.1",
     "@prisma/extension-accelerate": "^1.1.0",
     "hono": "^4.4.6"
   },

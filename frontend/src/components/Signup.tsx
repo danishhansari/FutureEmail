@@ -21,7 +21,11 @@ const Signup: React.FC = () => {
     mutationFn: () => signup(register),
     onSuccess: () =>
       toast({
-        title: "Register successfully",
+        title: "Register in successfully",
+      }),
+    onError: (response) =>
+      toast({
+        title: response.message,
       }),
   });
 

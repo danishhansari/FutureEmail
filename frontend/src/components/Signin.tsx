@@ -13,7 +13,6 @@ const Signin = () => {
     email: "",
     password: "",
   });
-  console.log(login);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -26,6 +25,10 @@ const Signin = () => {
     onSuccess: () =>
       toast({
         title: "Logged in successfully",
+      }),
+    onError: (response) =>
+      toast({
+        title: response.message,
       }),
   });
 
