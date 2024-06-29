@@ -5,13 +5,14 @@ import {
 } from "@/components/ui/popover";
 import { GanttChart, Pen } from "lucide-react";
 import { Button } from "./ui/button";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { logout, userQueryOptions } from "@/lib/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "./ui/use-toast";
 import { Skeleton } from "./ui/skeleton";
 
 export const Hamburger: React.FC = () => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { toast } = useToast();
   const { data, isLoading } = useQuery(userQueryOptions);
@@ -20,6 +21,7 @@ export const Hamburger: React.FC = () => {
     mutationFn: () => logout(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["get-current-user"] });
+      navigate({ to: "/auth", replace: true });
     },
     onError: () => {
       toast({
@@ -38,9 +40,12 @@ export const Hamburger: React.FC = () => {
             <Pen size={16} className='mr-2' />
             Write
           </Button>
-          <Link to='/auth'>
-            <Button variant={"ghost"}>Get started</Button>
-          </Link>
+
+          {!data && (
+            <Link to='/auth'>
+              <Button variant={"ghost"}>Get started</Button>
+            </Link>
+          )}
 
           {isLoading && <Skeleton className='h-10 w-20' />}
 
