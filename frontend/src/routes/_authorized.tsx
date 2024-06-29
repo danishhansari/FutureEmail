@@ -6,18 +6,19 @@ const Component = () => {
   const { user } = Route.useRouteContext();
 
   if (!user) {
-    return navigate({ to: "/auth", replace: true });
+    navigate({ to: "/auth", replace: true });
+    return null;
   }
   return <Outlet />;
 };
 
 export const Route = createFileRoute("/_authorized")({
   beforeLoad: async ({ context }) => {
-    console.log(context);
     const queryClient = context.queryClient;
     try {
       const data = await queryClient.fetchQuery(userQueryOptions);
-      return data;
+      console.log("I am from", data);
+      return { user: data };
     } catch (error) {
       return { user: null };
     }

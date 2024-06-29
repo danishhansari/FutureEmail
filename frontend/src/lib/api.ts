@@ -19,7 +19,6 @@ export const userQueryOptions = queryOptions({
 export const signup = async (value: RegisterType) => {
   try {
     const res = await axios.post("/api/auth/signup", value);
-    console.log(res);
     return res.data;
   } catch (error: any) {
     console.log(error);

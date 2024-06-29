@@ -2,8 +2,29 @@ import { Pen } from "lucide-react";
 import { Button } from "./ui/button";
 import { Hamburger } from "./Hamburger";
 import { Link } from "@tanstack/react-router";
-import { logout } from "@/lib/api";
+import { logout, userQueryOptions } from "@/lib/api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useToast } from "./ui/use-toast";
+import { Skeleton } from "./ui/skeleton";
+
 export const Navbar: React.FC = () => {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+  const mutation = useMutation({
+    mutationKey: ["logout"],
+    mutationFn: () => logout(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["get-current-user"] });
+    },
+    onError: () => {
+      toast({
+        title: "Error while logging out",
+      });
+    },
+  });
+
+  const { data, isLoading } = useQuery(userQueryOptions);
+
   return (
     <>
       <div className='bg-foreground flex w-full justify-between py-4 px-4 lg:px-20'>
@@ -30,7 +51,9 @@ export const Navbar: React.FC = () => {
               Get Started
             </Button>
           </Link>
-          <Button onClick={() => logout()}>Logout</Button>
+          {isLoading && <Skeleton className='h-10 w-20' />}
+
+          {data && <Button onClick={() => mutation.mutate()}>Logout</Button>}
         </div>
       </div>
     </>

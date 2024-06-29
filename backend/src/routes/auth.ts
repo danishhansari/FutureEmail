@@ -42,7 +42,6 @@ export const authRoute = new Hono<{
     deleteCookie(c, "Authorization");
     return c.json({ message: "token remove" });
   })
-
   .post("/signup", async (c) => {
     try {
       const body = await c.req.json();
