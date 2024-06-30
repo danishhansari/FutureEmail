@@ -3,11 +3,15 @@ import axios from "axios";
 import { queryOptions, useQueryClient } from "@tanstack/react-query";
 
 export const getCurrentUser = async () => {
-  const res = await axios.get("/api/auth/current-user");
-  if (!res) {
-    throw new Error("Server error");
+  try {
+    const res = await axios.get("/api/auth/current-user");
+    if (!res) {
+      throw new Error("Server error");
+    }
+    return res.data;
+  } catch (error) {
+    return error;
   }
-  return res.data;
 };
 
 export const userQueryOptions = queryOptions({
@@ -48,7 +52,7 @@ export const logout = async () => {
 
 export const sendToFutureEmail = async (email: string, date: Date) => {
   const queryClient = useQueryClient();
-  
+
   const { data } = await queryClient.fetchQuery(userQueryOptions);
   if (!data) {
     throw new Error("Please login first");
