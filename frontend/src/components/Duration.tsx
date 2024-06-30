@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, addDays } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -12,10 +12,27 @@ import {
 
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useState } from "react";
 
-export const Duration: React.FC = () => {
-  const [date, setDate] = useState<Date>();
+interface DurationProp {
+  date: Date;
+  setDate: (date: Date) => void;
+  selectDuration: string;
+  setSelectDuration: (selectDuration: string) => void;
+}
+
+export const Duration: React.FC<DurationProp> = ({
+  date,
+  setDate,
+  selectDuration,
+  setSelectDuration,
+}) => {
+  console.log(date);
+  const handleDurationChange = (value: string) => {
+    setSelectDuration(value);
+    const days = parseInt(value);
+    const futureDate = addDays(new Date(), days);
+    setDate(futureDate);
+  };
 
   return (
     <>
@@ -23,7 +40,15 @@ export const Duration: React.FC = () => {
         <h1 className='text-background text-lg font-semibold my-2'>
           Deliver in
         </h1>
-        <RadioGroup className='text-background flex gap-2 items-center flex-wrap my-2'>
+        <RadioGroup
+          className='text-background flex gap-2 items-center flex-wrap my-2'
+          value={selectDuration}
+          onValueChange={handleDurationChange}
+        >
+          <div className='flex items-center space-x-2 text-background'>
+            <RadioGroupItem value='1' id='r0' className='text-background' />
+            <Label htmlFor='r1'>Tomorrow</Label>
+          </div>
           <div className='flex items-center space-x-2 text-background'>
             <RadioGroupItem value='7' id='r1' className='text-background' />
             <Label htmlFor='r1'>7 Days</Label>
@@ -62,6 +87,7 @@ export const Duration: React.FC = () => {
               className='bg-foreground text-background'
               mode='single'
               selected={date}
+              // @ts-ignore
               onSelect={setDate}
               initialFocus
             />

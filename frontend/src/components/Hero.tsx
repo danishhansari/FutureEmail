@@ -1,7 +1,15 @@
+import { useState } from "react";
 import { Duration } from "./Duration";
 import { TextareaWithLabel } from "./TextareaWithLabel";
 
 export const Hero: React.FC = () => {
+  const tomorrowDate = new Date();
+  tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+
+  const [email, setEmail] = useState("Dear FutureMe,\n \n");
+  const [date, setDate] = useState<Date>(tomorrowDate);
+  const [selectDuration, setSelectDuration] = useState<string>("1");
+
   return (
     <div className='bg-foreground w-full pt-12 md:pt-20'>
       <div className=' max-w-4xl mx-auto px-4 border-b pb-4 border-slate-700'>
@@ -14,8 +22,13 @@ export const Hero: React.FC = () => {
           <span className='text-background font-medium'> Send. </span>
           Verify Thats It
         </p>
-        <TextareaWithLabel />
-        <Duration />
+        <TextareaWithLabel email={email} setEmail={setEmail} />
+        <Duration
+          date={date}
+          setDate={setDate}
+          selectDuration={selectDuration}
+          setSelectDuration={setSelectDuration}
+        />
       </div>
     </div>
   );
