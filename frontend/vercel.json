@@ -1,3 +1,12 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": "https://backend.dan72mail.workers.dev"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/"
+        }
+    ]
 }
