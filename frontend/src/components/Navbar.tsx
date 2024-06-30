@@ -31,10 +31,6 @@ export const Navbar: React.FC = () => {
           <Link to='/'>
             <img className='w-36' src='./logo-white.png' alt='Logo' />
           </Link>
-          <button className='font-medium text-md gap-2 items-center text-background hidden lg:flex'>
-            <Pen size={16} strokeWidth={1} />
-            Write
-          </button>
         </div>
 
         <div className='md:hidden'>
@@ -42,7 +38,7 @@ export const Navbar: React.FC = () => {
         </div>
 
         <div className='hidden md:flex gap-2'>
-          {!data && (
+          {!data && !isLoading && (
             <Link to='/auth'>
               <Button
                 variant='outline'
@@ -53,6 +49,12 @@ export const Navbar: React.FC = () => {
             </Link>
           )}
 
+          {data && (
+            <Button className='font-medium text-md gap-2 items-center text-background hidden lg:flex'>
+              <Pen size={18} strokeWidth={1} />
+              Write
+            </Button>
+          )}
           {isLoading && <Skeleton className='h-10 w-20 bg-slate-600' />}
 
           {data && <Button onClick={() => mutation.mutate()}>Logout</Button>}
