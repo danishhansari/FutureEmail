@@ -1,12 +1,24 @@
 {
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://backend.dan72mail.workers.dev"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/"
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
     }
-  ]
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://backend.dan72mail.workers.dev/api/$1",
+      "headers": {
+        "x-forwarded-host": "futureemail.vercel.app"
+      }
+    }
+  ],
+  "env": {
+    "VITE_SERVER": "https://backend.dan72mail.workers.dev"
+  }
 }

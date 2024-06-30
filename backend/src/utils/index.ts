@@ -17,7 +17,7 @@ export const getJWTAndOption = async (
 ): Promise<JwtSecret> => {
   const jwt = await sign(payload, secret);
   const options: CookieOptions = {
-    sameSite: "strict",
+    sameSite: "Strict",
     httpOnly: true,
     secure: true,
     expires: thirtyDaysFromNow(),
