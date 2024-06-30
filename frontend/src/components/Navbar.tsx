@@ -3,22 +3,17 @@ import { Button } from "./ui/button";
 import { Hamburger } from "./Hamburger";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { logout, userQueryOptions } from "@/lib/api";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useToast } from "./ui/use-toast";
 import { Skeleton } from "./ui/skeleton";
 
 export const Navbar: React.FC = () => {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { toast } = useToast();
   const mutation = useMutation({
     mutationKey: ["logout"],
     mutationFn: () => logout(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["get-current-user"] });
-      queryClient.refetchQueries({ queryKey: ["get-current-user"] });
-      navigate({ to: "/auth", replace: true });
-    },
+    onSuccess: () => navigate({ to: "/auth", replace: true }),
     onError: () => {
       toast({
         title: "Error while logging out",
@@ -27,6 +22,7 @@ export const Navbar: React.FC = () => {
   });
 
   const { data, isLoading } = useQuery(userQueryOptions);
+  console.log(data);
 
   return (
     <>
@@ -45,11 +41,11 @@ export const Navbar: React.FC = () => {
           <Hamburger />
         </div>
 
-        <div className='hidden md:block'>
-          {!isLoading && !data && (
+        <div className='hidden md:flex gap-2'>
+          {!data && (
             <Link to='/auth'>
               <Button
-                variant={"outline"}
+                variant='outline'
                 className='bg-foreground text-background'
               >
                 Get started

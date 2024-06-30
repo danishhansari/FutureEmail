@@ -115,6 +115,7 @@ export const authRoute = new Hono<{
         c.env.SECRET
       );
       setCookie(c, "Authorization", jwt, { ...options });
+      c.status(200);
       return c.json({ ...response, password: undefined });
     } catch (error: unknown) {
       c.status(411);

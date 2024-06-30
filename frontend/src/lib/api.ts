@@ -2,15 +2,19 @@ import { LoginType, RegisterType } from "@danishhansari/futureemail-common";
 import axios from "axios";
 import { queryOptions } from "@tanstack/react-query";
 
+const baseUrl = import.meta.env.VITE_SERVER;
+
 export const getCurrentUser = async () => {
+  console.log(baseUrl);
   try {
-    const res = await axios.get("/api/auth/current-user");
+    const res = await axios.get(`${baseUrl}/api/auth/current-user`);
     if (!res) {
       throw new Error("Server error");
     }
     return res.data;
   } catch (error) {
-    return error;
+    console.log(error);
+    return null;
   }
 };
 
@@ -22,7 +26,7 @@ export const userQueryOptions = queryOptions({
 
 export const signup = async (value: RegisterType) => {
   try {
-    const res = await axios.post("/api/auth/signup", value);
+    const res = await axios.post(`${baseUrl}/api/auth/signup`, value);
     return res.data;
   } catch (error: any) {
     console.log(error);
@@ -32,7 +36,7 @@ export const signup = async (value: RegisterType) => {
 
 export const signin = async (value: LoginType) => {
   try {
-    const res = await axios.post("/api/auth/signin", value);
+    const res = await axios.post(`${baseUrl}/api/auth/signin`, value);
     console.log(res);
     return res.data;
   } catch (error: any) {
@@ -43,7 +47,7 @@ export const signin = async (value: LoginType) => {
 
 export const logout = async () => {
   try {
-    const res = await axios.get("/api/auth/logout");
+    const res = await axios.get(`${baseUrl}/api/auth/logout`);
     return res;
   } catch (error: any) {
     throw new Error(error.message);
@@ -58,7 +62,10 @@ export const sendToFutureEmail = async (email: string, date: Date) => {
       if (date < today) {
         throw new Error("You cannot set past date");
       }
-      const res = await axios.post("/api/email/post", { email, date });
+      const res = await axios.post(`${baseUrl}/api/email/post`, {
+        email,
+        date,
+      });
       if (!res) {
         throw new Error("Error while sending");
       }
