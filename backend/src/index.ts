@@ -5,7 +5,8 @@ import { authRoute } from "./routes/auth";
 import { emailRoute } from "./routes/email";
 
 const app = new Hono();
-app.use("*", cors(), logger());
+app.use("*", cors());
+app.use("*", logger());
 
 app.get("/", (c) => {
   return c.text("Hello World!");
