@@ -8,7 +8,6 @@ datasource db {
 }
 
 
-
 model User{
   id String @id @default(uuid())
   name String
@@ -19,7 +18,6 @@ model User{
 
 model Email{
   id String @id @default(uuid())
-  subject String
   body String
   date DateTime
   owner User @relation(fields: [postId], references: [id])

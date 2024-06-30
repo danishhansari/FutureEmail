@@ -1,6 +1,6 @@
 import { LoginType, RegisterType } from "@danishhansari/futureemail-common";
 import axios from "axios";
-import { queryOptions, useQueryClient } from "@tanstack/react-query";
+import { queryOptions } from "@tanstack/react-query";
 
 export const getCurrentUser = async () => {
   try {
@@ -51,12 +51,6 @@ export const logout = async () => {
 };
 
 export const sendToFutureEmail = async (email: string, date: Date) => {
-  const queryClient = useQueryClient();
-
-  const { data } = await queryClient.fetchQuery(userQueryOptions);
-  if (!data) {
-    throw new Error("Please login first");
-  }
   try {
     if (date) {
       const today = new Date();

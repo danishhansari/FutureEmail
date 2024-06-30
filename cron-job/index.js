@@ -3,7 +3,9 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-//  This cron trigger will run everyday to check there is email date today or if yes then he will send and remove the db entry
-cron.schedule("* * * * *", async () => {
-  console.log("I ran successfully at every minutes");
+cron.schedule("*/10 * * * * *", async () => {
+  console.log("I ran successfully every 10 seconds");
+  const today = new Date(); // Current date and time
+  const emails = await prisma.email.findMany({});
+  console.log(emails);
 });

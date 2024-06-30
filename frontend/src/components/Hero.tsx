@@ -18,7 +18,7 @@ export const Hero: React.FC = () => {
 
   const mutation = useMutation({
     mutationKey: ["send-to-future"],
-    mutationFn: () => sendToFutureEmail(email, date),
+    mutationFn: async () => await sendToFutureEmail(email, date),
     onSuccess: () => {
       setEmail("Dear FutureMe, ");
       toast({
