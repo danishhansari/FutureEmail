@@ -26,7 +26,6 @@ export const Duration: React.FC<DurationProp> = ({
   selectDuration,
   setSelectDuration,
 }) => {
-  console.log(date);
   const handleDurationChange = (value: string) => {
     setSelectDuration(value);
     const days = parseInt(value);
@@ -94,7 +93,6 @@ export const Duration: React.FC<DurationProp> = ({
           </PopoverContent>
         </Popover>
       </div>
-      <Button className='hover:bg-slate-800'>Send to the Future</Button>
     </>
   );
 };

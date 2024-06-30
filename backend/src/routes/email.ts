@@ -33,9 +33,14 @@ export const emailRoute = new Hono<{
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
     const body = await c.req.json();
+    console.log(body);
     const userId = c.get("userId");
     const response = await prisma.email.create({
-      data: body,
+      data: {
+        body: body.email,
+        postId: userId,
+        date: body.date,
+      },
     });
     return c.json(response);
   });

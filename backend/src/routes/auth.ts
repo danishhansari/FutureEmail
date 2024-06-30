@@ -101,10 +101,10 @@ export const authRoute = new Hono<{
       });
       console.log(response);
       if (!response) {
+        c.status(403);
         return c.json({ message: "User is not exist" });
       }
       const verify = await verifyPassword(response.password, body.password);
-
       if (!verify) {
         c.status(403);
         return c.json({ message: "Password is incorrect" });

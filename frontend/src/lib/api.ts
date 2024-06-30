@@ -45,3 +45,23 @@ export const logout = async () => {
     throw new Error(error.message);
   }
 };
+
+export const sendToFutureEmail = async (email: string, date: Date) => {
+  try {
+    if (date) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (date < today) {
+        throw new Error("You cannot set past date");
+      }
+      const res = await axios.post("/api/email/post", { email, date });
+      if (!res) {
+        throw new Error("Error while sending");
+      }
+      console.log(res);
+      return res;
+    }
+  } catch (error) {
+    throw new Error("Error while sending to the db");
+  }
+};
