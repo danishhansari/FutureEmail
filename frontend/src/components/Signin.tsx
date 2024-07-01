@@ -1,14 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signin } from "@/lib/api";
+import { signin, userQueryOptions } from "@/lib/api";
 import { LoginType } from "@danishhansari/futureemail-common";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
 const Signin = () => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   const [login, setLogin] = useState<LoginType>({
     email: "",
     password: "",
@@ -22,10 +23,12 @@ const Signin = () => {
   const mutation = useMutation({
     mutationKey: ["login"],
     mutationFn: () => signin(login),
-    onSuccess: () =>
+    onSuccess: async () => {
+      await queryClient.refetchQueries(userQueryOptions);
       toast({
         title: "Logged in successfully",
-      }),
+      });
+    },
     onError: (response) =>
       toast({
         title: response.message,

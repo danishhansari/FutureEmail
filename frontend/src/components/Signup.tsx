@@ -1,14 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signup } from "@/lib/api";
+import { signup, userQueryOptions } from "@/lib/api";
 import { RegisterType } from "@danishhansari/futureemail-common";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
 const Signup: React.FC = () => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   const [register, setRegister] = useState<RegisterType>({
     name: "",
     email: "",
@@ -19,10 +20,12 @@ const Signup: React.FC = () => {
   const mutation = useMutation({
     mutationKey: ["signup"],
     mutationFn: () => signup(register),
-    onSuccess: () =>
+    onSuccess: async () => {
+      await queryClient.refetchQueries(userQueryOptions);
       toast({
         title: "Register in successfully",
-      }),
+      });
+    },
     onError: (response) =>
       toast({
         title: response.message,
