@@ -9,6 +9,7 @@
       }
     }
   ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -16,10 +17,6 @@
       "headers": {
         "x-forwarded-host": "futureemail.vercel.app"
       }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/"
     }
   ],
   "env": {
