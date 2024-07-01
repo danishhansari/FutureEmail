@@ -9,7 +9,6 @@
       }
     }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
   "routes": [
     {
       "src": "/api/(.*)",
