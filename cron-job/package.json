@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "5.16.1",
+    "date-fns": "^3.6.0",
     "node-cron": "^3.0.3"
   },
   "devDependencies": {

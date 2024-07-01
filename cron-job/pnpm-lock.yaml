@@ -11,6 +11,9 @@ importers:
       '@prisma/client':
         specifier: 5.16.1
         version: 5.16.1(prisma@5.16.1)
+      date-fns:
+        specifier: ^3.6.0
+        version: 3.6.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -72,6 +75,9 @@ packages:
 
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+
+  date-fns@3.6.0:
+    resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
 
   debug@4.3.5:
     resolution: {integrity: sha512-pt0bNEmneDIvdL1Xsd9oDQ/wrQRkXDT4AUWlNZNPKvW5x/jyO9VFXkJUP07vQ2upmw5PlaITaPKc31jK13V+jg==}
@@ -239,6 +245,8 @@ snapshots:
       fsevents: 2.3.3
 
   concat-map@0.0.1: {}
+
+  date-fns@3.6.0: {}
 
   debug@4.3.5(supports-color@5.5.0):
     dependencies:

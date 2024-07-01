@@ -6,25 +6,30 @@ import { RegisterType } from "@danishhansari/futureemail-common";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from "@tanstack/react-router";
 
 const Signup: React.FC = () => {
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const [register, setRegister] = useState<RegisterType>({
+  const initialState: RegisterType = {
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-  });
+  };
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [register, setRegister] = useState<RegisterType>(initialState);
 
   const mutation = useMutation({
     mutationKey: ["signup"],
     mutationFn: () => signup(register),
     onSuccess: async () => {
       await queryClient.refetchQueries(userQueryOptions);
+      setRegister(initialState);
       toast({
         title: "Register in successfully",
       });
+      navigate({ to: "/", replace: true });
     },
     onError: (response) =>
       toast({

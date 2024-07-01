@@ -3,6 +3,7 @@ import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono, Context } from "hono";
 import { deleteCookie, getCookie } from "hono/cookie";
 import { verifyJWT } from "../utils";
+import { format } from "date-fns";
 
 export const emailRoute = new Hono<{
   Bindings: {
@@ -35,11 +36,12 @@ export const emailRoute = new Hono<{
     const body = await c.req.json();
     console.log(body);
     const userId = c.get("userId");
+    const formatedDate = format(body.date, "dd/MM/yyyy");
     const response = await prisma.email.create({
       data: {
         body: body.email,
         postId: userId,
-        date: body.date,
+        date: formatedDate,
       },
     });
     return c.json(response);

@@ -6,14 +6,14 @@ import { LoginType } from "@danishhansari/futureemail-common";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from "@tanstack/react-router";
 
 const Signin = () => {
+  const initialState: LoginType = { email: "", password: "" };
+  const navigate = useNavigate();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const [login, setLogin] = useState<LoginType>({
-    email: "",
-    password: "",
-  });
+  const [login, setLogin] = useState<LoginType>(initialState);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -25,9 +25,11 @@ const Signin = () => {
     mutationFn: () => signin(login),
     onSuccess: async () => {
       await queryClient.refetchQueries(userQueryOptions);
+      setLogin(initialState);
       toast({
         title: "Logged in successfully",
       });
+      navigate({ to: "/", replace: true });
     },
     onError: (response) =>
       toast({
