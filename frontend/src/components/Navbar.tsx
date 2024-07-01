@@ -3,17 +3,21 @@ import { Button } from "./ui/button";
 import { Hamburger } from "./Hamburger";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { logout, userQueryOptions } from "@/lib/api";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "./ui/use-toast";
 import { Skeleton } from "./ui/skeleton";
 
 export const Navbar: React.FC = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { toast } = useToast();
   const mutation = useMutation({
     mutationKey: ["logout"],
     mutationFn: () => logout(),
-    onSuccess: () => navigate({ to: "/auth", replace: true }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(userQueryOptions);
+      navigate({ to: "/auth", replace: true });
+    },
     onError: () => {
       toast({
         title: "Error while logging out",
