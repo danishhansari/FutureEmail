@@ -9,7 +9,11 @@
       }
     }
   ],
-  "routes": [
+  "rewrites": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    },
     {
       "src": "/api/(.*)",
       "dest": "https://backend.dan72mail.workers.dev/api/$1",
