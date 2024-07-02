@@ -17,6 +17,7 @@ model User{
 
 model Email{
   id String @id @default(uuid())
+  email String
   body String
   date String
   owner User @relation(fields: [postId], references: [id])

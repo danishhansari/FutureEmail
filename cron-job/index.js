@@ -11,5 +11,4 @@ cron.schedule("*/5 * * * * *", async () => {
   const emails = await prisma.email.findMany({
     where: { date: todayDateFormated },
   });
-  console.log(emails);
 });
