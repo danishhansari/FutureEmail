@@ -67,7 +67,7 @@ export const authRoute = new Hono<{
         },
       });
       const { jwt, options } = await getJWTAndOption(
-        { id: response.id },
+        { id: response.id, email: response.email },
         c.env.SECRET
       );
       setCookie(c, "Authorization", jwt, { ...options });
@@ -111,7 +111,7 @@ export const authRoute = new Hono<{
       }
 
       const { jwt, options } = await getJWTAndOption(
-        { id: response.id },
+        { id: response.id, email: response.email },
         c.env.SECRET
       );
       setCookie(c, "Authorization", jwt, { ...options });

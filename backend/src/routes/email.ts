@@ -22,6 +22,7 @@ export const emailRoute = new Hono<{
       const verify = await verifyJWT(authorizationToken, c.env.SECRET);
       console.log(verify);
       c.set("userId", verify.id);
+      c.set("userEmail", verify.email);
       await next();
     } catch (error: any) {
       deleteCookie(c, "Authorization");
@@ -36,10 +37,12 @@ export const emailRoute = new Hono<{
     const body = await c.req.json();
     console.log(body);
     const userId = c.get("userId");
+    const email = c.get("userEmail");
     const formatedDate = format(body.date, "dd/MM/yyyy");
     const response = await prisma.email.create({
       data: {
         body: body.email,
+        email: email,
         postId: userId,
         date: formatedDate,
       },
