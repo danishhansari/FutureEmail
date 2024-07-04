@@ -25,6 +25,9 @@ export const authRoute = new Hono<{
         return c.json({ message: "Login first" });
       }
       const { id } = await verifyJWT(authorizationToken, c.env.SECRET);
+      if (!id) {
+        deleteCookie(c, "Authorization");
+      }
       const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
       }).$extends(withAccelerate());
@@ -34,6 +37,7 @@ export const authRoute = new Hono<{
       return c.json({ ...userDetails, password: undefined });
     } catch (error) {
       console.log(error);
+      deleteCookie(c, "Authorization");
       c.status(500);
       return c.json({ error });
     }
@@ -58,6 +62,7 @@ export const authRoute = new Hono<{
       const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
       }).$extends(withAccelerate());
+      console.log(body);
       const hashedPassword = await hashPassword(body.password);
       const response = await prisma.user.create({
         data: {
@@ -73,6 +78,7 @@ export const authRoute = new Hono<{
       setCookie(c, "Authorization", jwt, { ...options });
       return c.json({ ...response, password: undefined });
     } catch (error) {
+      console.log(error);
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         c.status(403);
         return c.json({ message: "User is already exist" });

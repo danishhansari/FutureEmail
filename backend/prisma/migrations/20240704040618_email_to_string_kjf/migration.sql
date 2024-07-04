@@ -11,9 +11,9 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Email" (
     "id" TEXT NOT NULL,
-    "subject" TEXT NOT NULL,
     "body" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
+    "email" TEXT NOT NULL,
+    "date" TEXT NOT NULL,
     "postId" TEXT NOT NULL,
 
     CONSTRAINT "Email_pkey" PRIMARY KEY ("id")
