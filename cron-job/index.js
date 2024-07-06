@@ -15,9 +15,11 @@ cron.schedule("*/5 * * * * *", async () => {
     where: { date: todayDateFormated },
   });
   emails.map((email) => sendConfiguration(email));
+  console.log(emails);
 });
 
 const sendConfiguration = (email) => {
+  console.log(email);
   const mailOptions = {
     from: {
       name: "Danish",
@@ -33,7 +35,7 @@ const sendConfiguration = (email) => {
 const sendEmail = async (mailOptions, id) => {
   try {
     const res = await transporter.sendMail(mailOptions);
-    const email = await prisma.email.findFirst({ where: { id } });
+    const email = await prisma.email.delete({ where: { id } });
     console.log(email);
     console.log(res);
   } catch (error) {
