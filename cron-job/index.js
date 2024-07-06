@@ -7,7 +7,7 @@ import { emailConfig } from "./config.js";
 const transporter = nodemailer.createTransport(emailConfig);
 const prisma = new PrismaClient();
 
-cron.schedule("*/5 * * * * *", async () => {
+cron.schedule("0 0 * * *", async () => {
   const today = new Date();
   const todayDateFormated = format(today, "dd/MM/yyyy");
   console.log(todayDateFormated);
