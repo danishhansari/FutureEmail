@@ -4,7 +4,7 @@ export const emailConfig = {
   port: 587,
   secure: false,
   auth: {
-    user: process.env.SENDER_EMAIL,
-    pass: process.env.SENDER_PASSWORD,
+    user: process.env.SENDER_EMAIL!,
+    pass: process.env.SENDER_PASSWORD!,
   },
 };

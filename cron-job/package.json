@@ -1,24 +1,26 @@
 {
   "name": "cron-job",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "module": "index.ts",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --env-file=.env index.js -q"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@prisma/client": "5.16.1",
-    "date-fns": "^3.6.0",
-    "node-cron": "^3.0.3",
-    "nodemailer": "^6.9.14"
+    "dev": "bun index.ts",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4",
-    "prisma": "5.16.1"
+    "@types/node-cron": "^3.0.11",
+    "@types/nodemailer": "^6.4.15",
+    "bun-types": "latest",
+    "drizzle-kit": "^0.24.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "date-fns": "^3.6.0",
+    "drizzle-orm": "^0.33.0",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.14",
+    "postgres": "^3.4.4"
   }
 }
