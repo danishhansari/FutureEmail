@@ -1,17 +1,7 @@
-import { Hono } from "hono";
-import { logger } from "hono/logger";
-import { cors } from "hono/cors";
-import { authRoute } from "./routes/auth";
-import { emailRoute } from "./routes/email";
+import app from "./app";
 
-const app = new Hono();
-app.use("*", cors());
-app.use("*", logger());
-
-app.get("/", (c) => {
-  return c.text("Hello World!");
+Bun.serve({
+  fetch: app.fetch,
 });
 
-app.basePath("/api").route("/auth", authRoute).route("/email", emailRoute);
-
-export default app;
+console.log("server running");
